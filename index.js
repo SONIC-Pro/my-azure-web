@@ -1,3 +1,9 @@
+const express = require('express');
+const app = express();
+
+// 1. 设置端口，必须监听 process.env.PORT
+const port = process.env.PORT || 8080;
+
 app.get('/', (req, res) => {
     // 调试用：把所有的请求头打印到页面上
     const allHeaders = JSON.stringify(req.headers, null, 2);
