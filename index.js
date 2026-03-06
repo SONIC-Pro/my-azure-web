@@ -21,6 +21,19 @@ app.get('/', (req, res) => {
     //     <hr>
     //     <p>提示：GitHub 有时不会返回 Display Name，所以 Azure 无法填充 principal-name。</p>
     // `);
+
+    const allHeaders = JSON.stringify(req.headers, null, 2);
+    
+    // 尝试读取用户名（注意：Header 键名在某些环境下是全小写的）
+    const username = req.headers['x-ms-client-principal-name'] || '访客';
+    
+    res.send(`
+        <h1>调试信息</h1>
+        <p>当前识别到的用户名: <strong>${username}</strong></p>
+        <hr>
+        <h3>所有接收到的请求头 (Headers):</h3>
+        <pre>${allHeaders}</pre>
+    `);
 });
 
 app.listen(port, () => {
